@@ -2,9 +2,18 @@ require 'nesta/app'
 require 'sinatra/base'
 require 'sinatra/assetpack'
 
+require 'rack-tidy-ffi'
+require 'rack/codehighlighter'
+
 module Nesta
   class App
     register Sinatra::AssetPack
+    use RackTidyFFI
+    use Rack::Codehighlighter,
+        :pygments_api,
+        :element  => 'pre>code',
+        :pattern  => /\A:::(\w+)\s*\n/,
+        :markdown => true
 
     ############################################
     ### Static Assets (handled by AssetPack) ###
