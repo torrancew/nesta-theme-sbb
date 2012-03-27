@@ -2,11 +2,14 @@ require 'nesta/app'
 require 'sinatra/base'
 require 'sinatra/assetpack'
 
+require 'tidy_ffi'
 require 'rack-tidy-ffi'
 require 'rack/codehighlighter'
 
 module Nesta
   class App
+    TidyFFI.library_path = ENV['TIDYLIB'] if ENV['TIDYLIB']
+
     register Sinatra::AssetPack
     use RackTidyFFI
     use Rack::Codehighlighter,
